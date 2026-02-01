@@ -1,0 +1,19 @@
+# Configuration for Cog (https://github.com/replicate/cog)
+# Reference: https://cog.run/yaml
+
+build:
+  gpu: true
+  python_version: "3.10"
+  python_packages:
+    - "tensorflow==2.12.0"
+    - "levenshtein>=0.24.0"
+    - "numpy>=1.22,<1.24"
+    - "Pillow>=9.0.0"
+
+  run:
+    - mkdir -p /src
+    - curl -L -o /tmp/zeus-model.tar.gz https://github.com/ufal/olimpic-icdar24/releases/download/zeus-release/zeus-olimpic-1.0-2024-02-12.model.tar.gz
+    - tar -xzf /tmp/zeus-model.tar.gz -C /src/
+    - rm /tmp/zeus-model.tar.gz
+
+predict: "predict.py:Predictor"
